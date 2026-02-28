@@ -1,0 +1,5 @@
+{
+  "name": "Gio Fashion Modas - Moda Feminina em Campinas",
+  "description": "Loja de roupas femininas e acessórios em Campinas/SP. Atendimento com hora marcada, looks selecionados e envio para todo o Brasil.",
+  "requestFramePermissions": ["geolocation"]
+}

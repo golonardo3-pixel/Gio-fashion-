@@ -1,41 +1,58 @@
+@import url('https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&family=Playfair+Display:ital,wght@0,400;0,700;1,400&display=swap');
 @import "tailwindcss";
 
 @theme {
   --font-sans: "Inter", ui-sans-serif, system-ui, sans-serif;
   --font-serif: "Playfair Display", serif;
-  --color-brand-primary: #D4AF37; /* Gold */
-  --color-brand-secondary: #F8E8E8; /* Soft Pink */
-  --color-brand-accent: #1A1A1A; /* Black */
+  
+  --color-nude-50: #FDFBF9;
+  --color-nude-100: #F8F3F0;
+  --color-nude-200: #F1E8E2;
+  --color-nude-300: #E4D5CB;
+  --color-brand-primary: #D4A373;
+  --color-brand-accent: #1A1A1A;
 }
 
 @layer base {
   html {
     scroll-behavior: smooth;
   }
+  
+  body {
+    @apply bg-nude-50 text-brand-accent font-sans antialiased;
+  }
 }
 
-.glass-nav {
-  background: rgba(255, 255, 255, 0.8);
-  backdrop-filter: blur(12px);
-  border-bottom: 1px solid rgba(0, 0, 0, 0.05);
+@layer components {
+  .section-padding {
+    @apply py-16 md:py-24;
+  }
+  
+  .container-custom {
+    @apply max-w-7xl mx-auto px-4 sm:px-6 lg:px-8;
+  }
 }
 
-.hero-gradient {
-  background: radial-gradient(circle at 50% 50%, #FDFCFB 0%, #F8E8E8 100%);
+.glass-header {
+  @apply sticky top-0 z-50 bg-white/80 backdrop-blur-md border-b border-nude-200;
+}
+
+.premium-card {
+  @apply bg-white rounded-2xl overflow-hidden shadow-sm border border-nude-100 transition-all duration-300 hover:shadow-md hover:-translate-y-1;
 }
 
 .btn-primary {
-  @apply bg-brand-accent text-white px-8 py-4 rounded-full font-medium transition-all hover:opacity-90 active:scale-95 flex items-center justify-center gap-2;
+  @apply inline-flex items-center justify-center px-8 py-4 rounded-full font-semibold transition-all duration-300 active:scale-95 bg-brand-accent text-white hover:bg-brand-accent/90 shadow-lg shadow-brand-accent/10;
 }
 
 .btn-secondary {
-  @apply border border-brand-accent text-brand-accent px-8 py-4 rounded-full font-medium transition-all hover:bg-brand-accent hover:text-white active:scale-95 flex items-center justify-center gap-2;
+  @apply inline-flex items-center justify-center px-8 py-4 rounded-full font-semibold transition-all duration-300 active:scale-95 bg-white text-brand-accent border border-nude-300 hover:bg-nude-100;
 }
 
-.section-title {
-  @apply font-serif text-3xl md:text-4xl lg:text-5xl mb-4;
+.btn-whatsapp {
+  @apply inline-flex items-center justify-center px-8 py-4 rounded-full font-semibold transition-all duration-300 active:scale-95 bg-[#25D366] text-white hover:bg-[#22c35e] shadow-lg shadow-[#25D366]/20;
 }
 
-.card-hover {
-  @apply transition-transform duration-300 hover:-translate-y-2;
+.title-serif {
+  @apply font-serif italic;
 }

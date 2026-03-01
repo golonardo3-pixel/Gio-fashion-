@@ -8,7 +8,7 @@
  */
 
 const CONFIG = {
-  WHATSAPP_NUMBER: "5519999999999", // [WHATSAPP_AQUI] - Troque pelo número real
+  WHATSAPP_NUMBER: "5519996654934", // [WHATSAPP_AQUI] - Troque pelo número real
   INSTAGRAM_URL: "https://www.instagram.com/giofashionmodass",
   STORE_ADDRESS: "Rua Elias Fausto, 54 — Campinas/SP", // [ENDERECO_AQUI]
   MAPS_EMBED_URL: "https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d3675.2123456789!2d-47.06!3d-22.9!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x0%3A0x0!2zMjLCsDU0JzAwLjAiUyA0N8KwMDMnMzYuMCJX!5e0!3m2!1spt-BR!2sbr!4v1234567890",
@@ -190,7 +190,19 @@ const Hero = () => {
 const LookCard: React.FC<{ index: number }> = ({ index }) => {
   const lookId = index + 1;
   const lookName = `Look ${lookId.toString().padStart(2, '0')}`;
-  const imageSrc = `/assets/looks/look${lookId}.jpg`;
+  // Configuração de imagens específicas enviadas pelo usuário
+  const imageSrc = index === 0 ? '/assets/looks/Look1.jpg' : 
+                   index === 1 ? '/assets/looks2.jpg' : 
+                   index === 2 ? '/Look3.jpg' :
+                   index === 3 ? '/assets/looks4.jpg' :
+                   `/assets/looks/look${lookId}.jpg`;
+  
+  // Fallback para os primeiros looks caso a imagem não exista
+  const fallbackSrc = index === 0 ? "https://images.unsplash.com/photo-1515886657613-9f3515b0c78f?auto=format&fit=crop&q=80&w=800&h=1200" :
+                      index === 1 ? "https://images.unsplash.com/photo-1483985988355-763728e1935b?auto=format&fit=crop&q=80&w=800&h=1200" :
+                      index === 2 ? "https://images.unsplash.com/photo-1490481651871-ab68de25d43d?auto=format&fit=crop&q=80&w=800&h=1200" :
+                      index === 3 ? "https://images.unsplash.com/photo-1492707892479-7bc8d5a4ee93?auto=format&fit=crop&q=80&w=800&h=1200" : "";
+  
   const waMessage = encodeURIComponent(`Olá! Vim pelo site da Gio Fashion Modas e quero informações do ${lookName} 😊`);
   const waLink = `https://wa.me/${CONFIG.WHATSAPP_NUMBER}?text=${waMessage}`;
 
@@ -209,17 +221,21 @@ const LookCard: React.FC<{ index: number }> = ({ index }) => {
           referrerPolicy="no-referrer"
           onError={(e) => {
             const target = e.target as HTMLImageElement;
-            target.style.display = 'none';
-            const parent = target.parentElement;
-            if (parent) {
-              parent.classList.add('flex', 'items-center', 'justify-center', 'flex-col', 'p-8', 'text-center');
-              const placeholder = document.createElement('div');
-              placeholder.className = 'text-brand-accent/20 flex flex-col items-center gap-4';
-              placeholder.innerHTML = `
-                <svg xmlns="http://www.w3.org/2000/svg" width="48" height="48" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1" stroke-linecap="round" stroke-linejoin="round"><path d="M6 2 3 6v14a2 2 0 0 0 2 2h14a2 2 0 0 0 2-2V6l-3-4Z"/><path d="M3 6h18"/><path d="M16 10a4 4 0 0 1-8 0"/></svg>
-                <span class="text-sm font-medium uppercase tracking-widest">Novo look em breve</span>
-              `;
-              parent.appendChild(placeholder);
+            if (fallbackSrc && target.src !== fallbackSrc) {
+              target.src = fallbackSrc;
+            } else {
+              target.style.display = 'none';
+              const parent = target.parentElement;
+              if (parent) {
+                parent.classList.add('flex', 'items-center', 'justify-center', 'flex-col', 'p-8', 'text-center');
+                const placeholder = document.createElement('div');
+                placeholder.className = 'text-brand-accent/20 flex flex-col items-center gap-4';
+                placeholder.innerHTML = `
+                  <svg xmlns="http://www.w3.org/2000/svg" width="48" height="48" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1" stroke-linecap="round" stroke-linejoin="round"><path d="M6 2 3 6v14a2 2 0 0 0 2 2h14a2 2 0 0 0 2-2V6l-3-4Z"/><path d="M3 6h18"/><path d="M16 10a4 4 0 0 1-8 0"/></svg>
+                  <span class="text-sm font-medium uppercase tracking-widest">Novo look em breve</span>
+                `;
+                parent.appendChild(placeholder);
+              }
             }
           }}
         />
@@ -248,7 +264,7 @@ const LookCard: React.FC<{ index: number }> = ({ index }) => {
             className="w-full py-3 rounded-xl border border-brand-primary text-brand-primary text-sm font-bold flex items-center justify-center gap-2 hover:bg-brand-primary hover:text-white transition-all"
           >
             <MessageCircle size={16} />
-            Quero esse look
+            Garantir meu Look Agora
           </a>
         </div>
       </div>
@@ -269,7 +285,7 @@ const LooksSection = () => {
         </div>
         
         <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4 gap-8">
-          {[...Array(12)].map((_, i) => (
+          {[...Array(4)].map((_, i) => (
             <LookCard key={i} index={i} />
           ))}
         </div>
